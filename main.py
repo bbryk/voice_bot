@@ -1,9 +1,11 @@
 import speech_recognition as sr
+from  selenium import webdriver
 from speak import speak
 from audio import record
 from music import play_music
+import alsaaudio
 
-FILENAME = "output1.wav"
+FILENAME = "audio_files/output.wav"
 def recognize_audio_file():
     r = sr.Recognizer()
     with sr.AudioFile(FILENAME) as source:
@@ -35,6 +37,21 @@ def main():
             if text.strip() =='stop':
                 speak("I'm outta here")
                 break
+
+            if text.strip()=='louder':
+                while True:
+                    m = alsaaudio.Mixer()
+                    current_volume = m.getvolume()
+                    m.setvolume(current_volume[0] + 10)
+
+                    record()
+                    try:
+                        text = recognize_audio_file()
+                    except sr.UnknownValueError:
+                        continue
+                    if text=='yes':
+                        break
+
         except sr.UnknownValueError:
             continue
 
