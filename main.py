@@ -1,7 +1,8 @@
 import speech_recognition as sr
 from speak import speak
-
 from audio import record
+from music import play_music
+
 FILENAME = "output1.wav"
 def recognize_audio_file():
     r = sr.Recognizer()
@@ -18,9 +19,21 @@ def main():
         try:
             text = recognize_audio_file()
             print(text)
-            if text.strip() == "play":
-                print('yes')
+            if text.strip() == "play music":
+                speak("Which song you want to play?")
+                record(seconds=5)
+                try:
+                    text = recognize_audio_file()
+                    speak(f'Finished recording. Playing {text}')
+                    play_music(text)
+
+                except sr.UnknownValueError:
+                    speak('I didn\'t recognise the text. Say play music if you want to play music')
+
+
+
             if text.strip() =='stop':
+                speak("I'm outta here")
                 break
         except sr.UnknownValueError:
             continue
@@ -31,7 +44,7 @@ def main():
 
 
 
-
+main()
 
 
 
