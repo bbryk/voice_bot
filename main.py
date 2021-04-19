@@ -96,7 +96,7 @@ if __name__=='__main__':
 
 # def api_create():
 #     from googleapiclient.discovery import build
-#     api_key = 'AIzaSyA9Jq41IossqPkJwZq8p6jJaj6L_ZfN25U'
+#     api_key = key
 #     youtube = build('youtube', 'v3', developerKey=api_key)
 #     return youtube
 
@@ -108,11 +108,3 @@ if __name__=='__main__':
 #     )
 #     response = request.execute()
 #     pprint(response)
-
-
-
-
-
-
-
-
