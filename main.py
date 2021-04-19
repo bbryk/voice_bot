@@ -38,19 +38,13 @@ def main():
                 speak("I'm outta here")
                 break
 
-            if text.strip()=='louder':
-                while True:
-                    m = alsaaudio.Mixer()
-                    current_volume = m.getvolume()
-                    m.setvolume(current_volume[0] + 10)
+            if ''.join(text.strip().split()[:2])=='setvolume':
+                m = alsaaudio.Mixer()
+                current_volume = m.getvolume()
+                m.setvolume(int(text.strip().split()[-1]))
 
-                    record()
-                    try:
-                        text = recognize_audio_file()
-                    except sr.UnknownValueError:
-                        continue
-                    if text=='yes':
-                        break
+
+
 
         except sr.UnknownValueError:
             continue
@@ -59,9 +53,10 @@ def main():
 
 
 
+if __name__=='__main__':
 
 
-main()
+    main()
 
 
 
